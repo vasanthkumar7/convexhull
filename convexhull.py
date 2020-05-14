@@ -1,7 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
-x=[1,3,1,9,5,5,4,3,2]
-y=[2,4,3,3,6,5,4,8,6]
+x=[1,3,3,1,2,3,5,1,9,10,5]
+y=[1,1,3,3,7,2,9,1,4,2,9]
 p=min(y)
 pp=y.index(p)
 
@@ -19,26 +19,33 @@ stackx.append(x[e+1])
 stacky.append(y[e+1])
 stackx.append(x[e+2])
 stacky.append(y[e+2])
-angle=((stackx[e+2]-stackx[e+1])/(stacky[e+2]-stacky[e+1]))-((stackx[e+1]-stackx[e])/(stacky[e+1]-stacky[e]))
+try:
+    angle=((stacky[e+1]-stacky[e])*(stackx[e+2]-stackx[e+1]))-((stacky[e+2]-stacky[e+1])*(stackx[e+1]-stackx[e]))
+except ZeroDivisionError:
+    angle=0
+
 if(angle>=0):
     stackx.remove(x[e+1])
     stacky.remove(y[e+1])
 if(angle<0):
     e=e+1
 
-    
+print(angle)
 print(stackx,stacky,sep=' ')
-
-for i in range(len(stackx)+1,len(x)):
+print(len(stackx))
+for i in range(len(stackx),len(x)):
         stackx.append(x[i])
         stacky.append(y[i])
         w=0
         wq=0
-        
         try:
-            angle=((stackx[e+2]-stackx[e+1])/(stacky[e+2]-stacky[e+1]))-((stackx[e+1]-stackx[e])/(stacky[e+1]-stacky[e]))
+            angle=((stacky[e+1]-stacky[e])*(stackx[e+2]-stackx[e+1]))-((stacky[e+2]-stacky[e+1])*(stackx[e+1]-stackx[e]))
+            
         except ZeroDivisionError:
             angle=0
+        print(stackx,stacky,sep=' ')
+        print(angle)
+        angle=w-wq
         if(angle>=0):
             stackx.remove(stackx[e+1])
             stacky.remove(stacky[e+1])
