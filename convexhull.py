@@ -1,7 +1,10 @@
 import pandas as pd
+
+import numpy as np
+import math
 from matplotlib import pyplot as plt
-x=[1,3,1,7,9,5,5,4,3,2]
-y=[2,4,3,8,3,6,5,4,8,6]
+x=[1,3,1,7,9,5,4,3,2]
+y=[2,4,3,8,3,6,4,8,6]
 p=min(y)
 pp=y.index(p)
 
@@ -11,6 +14,30 @@ y.remove(p)
 x.insert(0,q)
 y.insert(0,p)
 e=0
+distances=[]
+for i in range(1,len(x)):
+    d=math.sqrt((x[0]-x[i])**2+(y[0]-y[i])**2)
+    db=math.sqrt((x[0]-x[i])**2)
+    a=np.degrees(np.arccos(db/d))
+    distances.append(int(a))
+print(distances)
+
+for i in range(len(distances)):
+    mi=i
+    for j in range(i+1,len(x)-1):
+        if(distances[mi]>distances[j]):
+            mi=j
+    if(mi!=i):
+        temp=x[mi+1]
+        x[mi+1]=x[i+1]
+        x[i+1]=temp
+        temp=y[mi+1]
+        y[mi+1]=y[i+1]
+        y[i+1]=temp
+        temp=distances[mi]
+        distances[mi]=distances[i]
+        distances[i]=temp
+    
 stackx=[]
 stacky=[]
 stackx.append(x[e])
@@ -20,7 +47,7 @@ stacky.append(y[e+1])
 stackx.append(x[e+2])
 stacky.append(y[e+2])
 try:
-    anglep=((stacky[e+1]-stacky[e])/(stackx[e+1]-stackx[e]))-((stacky[e+2]-stacky[e+1])/(stackx[e+2]-stackx[e+1]))
+    anglep=((stacky[e+1]-stacky[e])*(stackx[e+2]-stackx[e+1]))-((stacky[e+2]-stacky[e+1])*(stackx[e+1]-stackx[e]))
 except ZeroDivisionError:
     anglep=0
 
@@ -41,7 +68,7 @@ for i in range(len(stackx),len(x)):
         print(stackx,stacky,sep=' ')
        
         try:
-            angle=((stacky[e+1]-stacky[e])/(stackx[e+1]-stackx[e]))-((stacky[e+2]-stacky[e+1])/(stackx[e+2]-stackx[e+1]))
+            angle=((stacky[e+1]-stacky[e])*(stackx[e+2]-stackx[e+1]))-((stacky[e+2]-stacky[e+1])*(stackx[e+1]-stackx[e]))
         except ZeroDivisionError:
             angle=0
         
@@ -70,4 +97,3 @@ plt.plot(x,y,'o')
 plt.show()
     
 print(stackx,stacky,sep=' ')
-
