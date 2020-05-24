@@ -3,8 +3,20 @@ import pandas as pd
 import numpy as np
 import math
 from matplotlib import pyplot as plt
-x=[1,3,1,7,9,5,4,3,2]
-y=[2,4,3,8,3,6,4,8,6]
+x=[1,3,1,7,9,5,3,2,7,5,4,4,5]
+y=[2,4,3,8,3,6,8,6,3,8,5,4,5]
+
+xx=[]
+yy=[]
+for i in range(len(x)):
+    if(x[i]!=y[i]):
+        xx.append(x[i])
+        yy.append(y[i])
+tempx=x
+tempy=y
+x=xx
+y=yy
+
 p=min(y)
 pp=y.index(p)
 
@@ -88,12 +100,17 @@ for i in range(len(stackx),len(x)):
 
 stackx.append(stackx[0])
 stacky.append(stacky[0])
-        
+kpk=len(stackx)
+stax=[]
+stay=[]
 
+        
+        
 print(stackx,stacky,sep=' ')
+
 plt.title("convex hull") 
 plt.plot(stackx,stacky)
-plt.plot(x,y,'o')
+plt.plot(tempx,tempy,'o')
 plt.show()
     
 print(stackx,stacky,sep=' ')
