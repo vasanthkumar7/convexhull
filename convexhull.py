@@ -3,12 +3,13 @@ import pandas as pd
 import numpy as np
 import math
 from matplotlib import pyplot as plt
-x=[1,3,1,7,9,5,3,2,7,5,4,4,5]
-y=[2,4,3,8,3,6,8,6,3,8,5,4,5]
+x=[1,3,1,7,9,5,3,2,7,5,4,4,5,3,3,1]
+y=[2,4,3,8,3,6,8,6,3,8,5,4,5,6,9,9]
 
 xx=[]
 yy=[]
 for i in range(len(x)):
+    
     if(x[i]!=y[i]):
         xx.append(x[i])
         yy.append(y[i])
@@ -89,6 +90,18 @@ for i in range(len(stackx),len(x)):
         if(angle>=0):
             del stackx[e+1]
             del stacky[e+1]
+            try:
+                anglep=((stacky[e]-stacky[e-1])*(stackx[e+1]-stackx[e]))-((stacky[e+1]-stacky[e])*(stackx[e]-stackx[e-1]))
+            except ZeroDivisionError:
+                anglep=0
+            if(anglep>=0):
+                del stackx[e]
+                del stacky[e]
+                e=e-1
+           
+
+            
+            
         if(angle<0):
             e=e+1
         print("angle=",angle)
