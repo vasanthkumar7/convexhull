@@ -10,7 +10,7 @@ xx=[]
 yy=[]
 for i in range(len(x)):
     
-    if(x[i]!=y[i]):
+    if(x[i]!=y[i] or y[i]>=max(y)):
         xx.append(x[i])
         yy.append(y[i])
 tempx=x
