@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import math
 from matplotlib import pyplot as plt
-x=[1,3,1,7,9,5,3,2,7,5,4,4,5,3,3,1]
-y=[2,4,3,8,3,6,8,6,3,8,5,4,5,6,9,9]
+x=[1,3,1,7,9,5,3,2,7,5,4,4,5,3,3,1,8,6,7,9,7,10,3,2,1,4]
+y=[2,4,3,8,3,6,8,6,3,8,5,4,5,6,9,9,3,4,6,9,7,10,3,2,10,9]
 
 xx=[]
 yy=[]
@@ -33,7 +33,7 @@ for i in range(1,len(x)):
     db=math.sqrt((x[0]-x[i])**2)
     a=np.degrees(np.arccos(db/d))
     distances.append(int(a))
-print(distances)
+
 
 for i in range(len(distances)):
     mi=i
@@ -69,24 +69,21 @@ if(anglep>=0):
     del stacky[e+1]
 if(anglep<0):
     e=e+1
-print("e=",e)
-print("angle= ",anglep)
-print(" ")
+
 for i in range(len(stackx),len(x)):
         stackx.append(x[i])
         stacky.append(y[i])
        
         w=0
         wq=0
-        print(stackx,stacky,sep=' ')
+       
        
         try:
             angle=((stacky[e+1]-stacky[e])*(stackx[e+2]-stackx[e+1]))-((stacky[e+2]-stacky[e+1])*(stackx[e+1]-stackx[e]))
         except ZeroDivisionError:
             angle=0
         
-        print(stackx[e+1])
-        print(stacky[e+1])
+        
         if(angle>=0):
             del stackx[e+1]
             del stacky[e+1]
@@ -104,11 +101,7 @@ for i in range(len(stackx),len(x)):
             
         if(angle<0):
             e=e+1
-        print("angle=",angle)
-        print(stackx,stacky,sep=' ')
         
-        print("e=",e)
-        print(" ")
        
 
 stackx.append(stackx[0])
@@ -119,7 +112,7 @@ stay=[]
 
         
         
-print(stackx,stacky,sep=' ')
+
 
 plt.title("convex hull") 
 plt.plot(stackx,stacky)
