@@ -3,14 +3,27 @@ import pandas as pd
 import numpy as np
 import math
 from matplotlib import pyplot as plt
-x=[1,3,1,7,9,5,3,2,7,5,4,4,5,3,3,1,8,6,7,9,7,10,3,2,1,4]
-y=[2,4,3,8,3,6,8,6,3,8,5,4,5,6,9,9,3,4,6,9,7,10,3,2,10,9]
-
+#this will work for  distict points
+x=[5,6,7,3,2,1,7,9,2,6]
+y=[4,5,3,2,5,7,3,5,1,2]
+for i in range(len(x)-1):
+    mi=i
+    for j in range(i+1,len(x)):
+        if(x[mi]>x[j] and y[mi]>y[j]):
+            mi=j
+    if mi!=i:
+        temp=x[i]
+        x[i]=x[mi]
+        x[mi]=temp
+        temp=y[i]
+        y[i]=y[mi]
+        y[mi]=temp
+        
+print(min(x))
 xx=[]
 yy=[]
 for i in range(len(x)):
-    
-    if(x[i]!=y[i] or y[i]>=max(y) or y[i]==min(y)):
+    if x[i]!=y[i] or y[i]==min(y[i]):
         xx.append(x[i])
         yy.append(y[i])
 tempx=x
@@ -50,6 +63,8 @@ for i in range(len(distances)):
         temp=distances[mi]
         distances[mi]=distances[i]
         distances[i]=temp
+print(distances)
+print(x,y,sep=' ')
     
 stackx=[]
 stacky=[]
@@ -87,20 +102,25 @@ for i in range(len(stackx),len(x)):
         if(angle>=0):
             del stackx[e+1]
             del stacky[e+1]
-            try:
-                anglep=((stacky[e]-stacky[e-1])*(stackx[e+1]-stackx[e]))-((stacky[e+1]-stacky[e])*(stackx[e]-stackx[e-1]))
-            except ZeroDivisionError:
-                anglep=0
-            if(anglep>=0):
-                del stackx[e]
-                del stacky[e]
-                e=e-1
+            if(len(stackx)>=2):
+                try:
+                    anglep=((stacky[e]-stacky[e-1])*(stackx[e+1]-stackx[e]))-((stacky[e+1]-stacky[e])*(stackx[e]-stackx[e-1]))
+                except ZeroDivisionError:
+                    anglep=0
+                if(anglep>=0):
+                    del stackx[e]
+                    del stacky[e]
+                    e=e-1
+                
+           
+
            
 
             
             
         if(angle<0):
             e=e+1
+        print(stackx,stacky,sep=' ')
         
        
 
@@ -112,7 +132,7 @@ stay=[]
 
         
         
-
+print(stackx,stacky,sep=' ')
 
 plt.title("convex hull") 
 plt.plot(stackx,stacky)
